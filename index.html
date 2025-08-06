@@ -1,80 +1,74 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ورود به رمان ماتیکس</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تأیید سن - ورود به سایت</title>
   <style>
     body {
-      font-family: 'Vazirmatn', sans-serif;
-      background: linear-gradient(to bottom right, #0077be, #00c6ff);
-      color: white;
+      font-family: "Vazirmatn", sans-serif;
+      background: linear-gradient(to bottom right, #0093E9, #80D0C7);
+      color: #fff;
       text-align: center;
       padding: 50px;
+      direction: rtl;
     }
-    .box {
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 16px;
-      padding: 40px;
-      max-width: 400px;
-      margin: auto;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
     }
     input[type="number"] {
       padding: 10px;
-      font-size: 16px;
-      border-radius: 10px;
+      font-size: 1rem;
       border: none;
-      margin-top: 20px;
-      width: 80%;
-      text-align: center;
+      border-radius: 10px;
+      margin-bottom: 20px;
     }
     button {
-      margin-top: 25px;
-      background: #ffffff;
-      color: #0077be;
-      padding: 12px 25px;
-      font-size: 18px;
+      padding: 12px 30px;
+      font-size: 1.1rem;
       border: none;
       border-radius: 25px;
+      background-color: #004aad;
+      color: white;
       cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    button:hover {
-      background: #e0e0e0;
     }
     #error {
       color: yellow;
-      margin-top: 15px;
+      margin-top: 20px;
+      font-size: 1rem;
     }
   </style>
 </head>
 <body>
-  <div class="box">
-    <h2>ورود به رمان +18</h2>
-    <p>لطفاً سال تولد خود را وارد کنید:</p>
-    <input type="number" id="birthYear" placeholder="مثلاً 1385 یا 2006">
-    <br>
-    <button onclick="checkAge()">ورود به سایت</button>
-    <p id="error"></p>
-  </div>
+  <h1>برای ورود، سن خود را وارد کنید</h1>
+  <input type="number" id="age" placeholder="مثلاً ۱۸" />
+  <br />
+  <button onclick="checkAge()">ورود به سایت</button>
+  <p id="error"></p>
 
   <script>
-    function checkAge() {
-      const input = document.getElementById("birthYear").value;
-      const year = parseInt(input);
-      const currentYear = new Date().getFullYear();
-      const age = currentYear - year;
+    const SITE_URL = "https://romane-matix7z.onrender.com";
 
-      if (!year  year > currentYear  year < 1900) {
-        document.getElementById("error").innerText = "سال تولد معتبر نیست.";
+    // اگر قبلاً تأیید شده بود، مستقیم بفرست داخل سایت
+    if (localStorage.getItem("age_verified") === "true") {
+      window.location.href = SITE_URL;
+    }
+
+    function checkAge() {
+      const age = parseInt(document.getElementById("age").value);
+      const error = document.getElementById("error");
+
+      if (!age || isNaN(age)) {
+        error.textContent = "لطفاً سن معتبر وارد کنید.";
         return;
       }
 
-      if (age < 18) {
-        document.getElementById("error").innerText = "شما مجاز به ورود نیستید ❌";
+      if (age >= 18) {
+        localStorage.setItem("age_verified", "true");
+        window.location.href = SITE_URL;
       } else {
-        window.location.href = "https://romane-matix7z.onrender.com";
+        error.textContent = "متأسفیم، شما اجازه ورود به این سایت را ندارید.";
       }
     }
   </script>
