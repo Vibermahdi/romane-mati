@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ورود به رمان ماتیکس</title>
+  <style>
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background: linear-gradient(to bottom right, #0077be, #00c6ff);
+      color: white;
+      text-align: center;
+      padding: 50px;
+    }
+    .box {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    }
+    input[type="number"] {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: none;
+      margin-top: 20px;
+      width: 80%;
+      text-align: center;
+    }
+    button {
+      margin-top: 25px;
+      background: #ffffff;
+      color: #0077be;
+      padding: 12px 25px;
+      font-size: 18px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #e0e0e0;
+    }
+    #error {
+      color: yellow;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>ورود به رمان +18</h2>
+    <p>لطفاً سال تولد خود را وارد کنید:</p>
+    <input type="number" id="birthYear" placeholder="مثلاً 1385 یا 2006">
+    <br>
+    <button onclick="checkAge()">ورود به سایت</button>
+    <p id="error"></p>
+  </div>
+
+  <script>
+    function checkAge() {
+      const input = document.getElementById("birthYear").value;
+      const year = parseInt(input);
+      const currentYear = new Date().getFullYear();
+      const age = currentYear - year;
+
+      if (!year  year > currentYear  year < 1900) {
+        document.getElementById("error").innerText = "سال تولد معتبر نیست.";
+        return;
+      }
+
+      if (age < 18) {
+        document.getElementById("error").innerText = "شما مجاز به ورود نیستید ❌";
+      } else {
+        window.location.href = "https://romane-matix7z.onrender.com";
+      }
+    }
+  </script>
+</body>
+</html>
